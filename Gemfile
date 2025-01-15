@@ -7,7 +7,7 @@ gem "rails", "~> 8.0.1"
 gem "propshaft"
 
 gem "devise", "~> 4.9.4"
-gem "simple_form", "~> 5.1.0"
+gem "simple_form", "~> 5.3.1"
 gem "pg", "~> 1.1"
 gem "puma", "~> 6.5.0"
 
