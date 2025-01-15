@@ -1,24 +1,10 @@
-# README
+# Quotse!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Single-page quote editor without having to write a single line of custom JavaScript thanks to Turbo drive, Turbo Frames and Turbo Streams.
+- all clicks on links and form submissions are now AJAX requests thanks to Turbo Drive.
+- real-time features with the help of Turbo Streams
 
-Things you may want to cover:
+### Technologies
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Ruby - 3.4.0
+- Rails - 8.0.1
