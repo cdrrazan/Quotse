@@ -1,16 +1,15 @@
-<p style="color: green"><%= notice %></p>
+<%= turbo_stream_from current_company, "quotes" %>
 
-<% content_for :title, "Quotes" %>
+<div class="container">
+  <div class="header">
+    <h1>Quotes</h1>
+    <%= link_to "New quote", new_quote_path, class: "btn btn--primary", data: { turbo_frame: dom_id(Quote.new) } %>
+  </div>
 
-<h1>Quotes</h1>
+  <%= turbo_frame_tag Quote.new %>
 
-<div id="quotes">
-  <% @quotes.each do |quote| %>
-    <%= render quote %>
-    <p>
-      <%= link_to "Show this quote", quote %>
-    </p>
+  <%= turbo_frame_tag "quotes" do %>
+    <%= render "quotes/empty_state" %>
+    <%= render @quotes %>
   <% end %>
 </div>
-
-<%= link_to "New quote", new_quote_path %>

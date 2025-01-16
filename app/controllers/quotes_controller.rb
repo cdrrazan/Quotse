@@ -3,7 +3,7 @@ class QuotesController < ApplicationController
 
   # GET /quotes or /quotes.json
   def index
-    @quotes = Quote.all
+    @quotes = current_company.quotes.ordered
   end
 
   # GET /quotes/1 or /quotes/1.json
@@ -21,15 +21,14 @@ class QuotesController < ApplicationController
 
   # POST /quotes or /quotes.json
   def create
-    @quote = Quote.new(quote_params)
+    @quote = current_company.quotes.build(quote_params)
 
     respond_to do |format|
       if @quote.save
-        format.html { redirect_to @quote, notice: "Quote was successfully created." }
-        format.json { render :show, status: :created, location: @quote }
+        format.html { redirect_to quotes_path, notice: "Quote was successfully created." }
+        format.turbo_stream { flash.now[:notice] = "Quote was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @quote.errors, status: :unprocessable_entity }
+        render :new, status: :unprocessable_entity
       end
     end
   end
@@ -38,34 +37,30 @@ class QuotesController < ApplicationController
   def update
     respond_to do |format|
       if @quote.update(quote_params)
-        format.html { redirect_to @quote, notice: "Quote was successfully updated." }
-        format.json { render :show, status: :ok, location: @quote }
+        format.html { redirect_to quotes_path, notice: "Quote was successfully updated." }
+        format.turbo_stream { flash.now[:notice] = "Quote was successfully updated." }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @quote.errors, status: :unprocessable_entity }
+        render :edit, status: :unprocessable_entity
       end
     end
   end
 
   # DELETE /quotes/1 or /quotes/1.json
   def destroy
-    @quote.destroy!
+    @quote.destroy
 
     respond_to do |format|
-      format.html { redirect_to quotes_path, status: :see_other, notice: "Quote was successfully destroyed." }
-      format.json { head :no_content }
+      format.html { redirect_to quotes_path, notice: "Quote was successfully deleted." }
+      format.turbo_stream { flash.now[:notice] = "Quote was successfully destroyed." }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_quote
-      @quote = Quote.find(params.expect(:id))
-    end
+  def set_quote
+    @quote = Quote.find(params.expect(:id))
+  end
 
-    # Only allow a list of trusted parameters through.
-    def quote_params
-      params.fetch(:quote, {})
-    end
+  def quote_params
+    params.require(:quote).permit(:name)
+  end
 end
-
