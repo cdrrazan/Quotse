@@ -22,7 +22,7 @@ class QuotesController < ApplicationController
   # POST /quotes or /quotes.json
   def create
     @quote = current_company.quotes.build(quote_params)
-    
+
     respond_to do |format|
       if @quote.save
         format.html { redirect_to quotes_path, notice: "Quote was successfully created." }
