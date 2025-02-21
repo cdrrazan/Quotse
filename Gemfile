@@ -17,7 +17,7 @@ gem "sprockets-rails"
 gem "jsbundling-rails"
 gem "cssbundling-rails"
 gem "jbuilder"
-gem "redis", "~> 5.3"
+gem "redis", "~> 5.4"
 
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
